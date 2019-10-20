@@ -1,0 +1,59 @@
+{% include "header.html"%}
+
+<body class="center bg-light">
+    <div class="container-fluid bg-light">
+        <div class="row">
+            <div class="col-xl-1"></div>
+            <div class="col-xl-11 mt-5">
+                <h1>Projekte </h1>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xl-1"></div>
+            <div class="col-xl-8 ">
+            </div>
+            <div class="col-xl-3">
+                <form action="#" method="post">
+                    <div class="form-row align-items-center">
+                        <!-- <div class="col-auto">
+
+                            <input type="text" class="form-control " name="search" placeholder="Jane Doe">
+                        </div>
+                       
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-2">Suchen</button>
+                        </div>-->
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-1"></div>
+            <div class="col-xl-10 mt-2 ">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+
+                        <thead>
+                            <tr>
+                                <th scope="col" class="col-auto">Projektname</th>
+                                <th scope="col" class="col-md-auto">Zeit</th>
+                                <th scope="col" class="col-md-auto">Kosten</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for projekt in projekte%} {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xl-1">
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
