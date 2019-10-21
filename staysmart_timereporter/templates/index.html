@@ -10,30 +10,53 @@
             <div class="col-xl-11 mt-5 pr-5">
                 <h1> stay smart Timereporter </h1>
                 <div class="mr-5 pr-5">
+                    {% if projects is defined %}
+
+                    <form method="post">
+                        <div class="form-group col-md-6">
+                            <label for="APIKey"> API Schlüssel</label>
+                            <input type="text" class="form-control" name="apikey" placeholder="Bearer XXXX" value="{{api_key}}" readonly>
+
+                        </div>
+                        <div class="form-group col-md-6">
+
+                            <label for="role">Wählen Sie die Projekte aus, welche Sie auswerten möchten?</label>
+                            <input class="form-check-input" type="hidden" name="cateogrie" value="0" id="defaultCheck1" /> {% for project in projects%}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="mycheckbox" value="{{project['id']}}">
+                                <label class="form-check-label" for="defaultCheck1">{{project['name']}}</label>
+                            </div>
+
+
+                            {% endfor %}
+                            <button type="submit" class="btn btn-primary mt-2" name="submit" Value="Submit"> Projekte
+                            auswerten</button></div>
+
+                    </form>
+                    {%else%}
+                    <p> Hier erhalten Sie die Möglichkeit Meistertask Projekte auszuwerten. </p>
                     <form method="post">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="APIKey"> API Schlüssel </label>
-                                <input type="text" class="form-control" name="apikey" placeholder="Vorname">
-                                <button type="submit" class="btn btn-primary" name="signup-submit"> Projekte
+                                <label for="APIKey"> Bitte geben Sie ihren API Schlüssel ein. Diesen finden Sie <a href="https://www.mindmeister.com/api/access_tokens/new"> hier </a> </label>
+                                <input type="text" class="form-control" name="apikey" placeholder="Bearer XXXX">
+                                <button type="submit" class="btn btn-primary mt-2" name="submit" value="Search"> Projekte
                                     suchen</button>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="role">Projekte</label>
-                            <input class="form-check-input" type="hidden" name="cateogrie" value="0" id="defaultCheck1" /> {% for project in projects%}
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="categorie[]" value="{{project['name']}}" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">{{project['name']}}</label>
-                            </div>
-                            {% endfor %}
-
+                        {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            API Schlüssel nicht gültig!
                         </div>
-                    </form>
-                </div>
-            </div>
+                        {% endif %}
+                    </form>{%endif%}
 
+                </div>
+
+            </div>
         </div>
+
+    </div>
     </div>
 
 
