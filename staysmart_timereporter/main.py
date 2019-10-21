@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, url_for
 from libs import report
 import json
 from libs import meistertask_requests as meistertask
-
+from libs import data_helper 
 app = Flask("staysmart_timereporter")
 
 @app.route('/',methods=['GET','POST'])
@@ -27,15 +27,22 @@ def auth():
             api_key = request.form['apikey']
             try: 
                 selected_projects =  request.form.getlist('mycheckbox')
-                path = report.report(selected_projects,api_key)
-                return path
+                salary = request.form['salary']
+                path = report.report(selected_projects,int(salary),api_key)
+                redirect_path = 'projects/' + path
+                return redirect(redirect_path)
             except:
                 return render_template("index.html",error= 'true')
     return render_template("index.html")
 
-@app.route('/projects/')
-def projects():
-    return 
+@app.route('/projects/<path>')
+def projects(path):
+    if path is not None:
+        path= 'data/' + path
+        data = {}
+        data = data_helper.load_json(path)
+        return render_template("projects.html",projects=data)
+    return data
 
 
 if __name__ == "__main__":

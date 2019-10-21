@@ -15,7 +15,7 @@
                     <form method="post">
                         <div class="form-group col-md-6">
                             <label for="APIKey"> API Schlüssel</label>
-                            <input type="text" class="form-control" name="apikey" placeholder="Bearer XXXX" value="{{api_key}}" readonly>
+                            <input type="text" class="form-control" name="apikey" value="{{api_key}}" readonly>
 
                         </div>
                         <div class="form-group col-md-6">
@@ -27,8 +27,13 @@
                                 <label class="form-check-label" for="defaultCheck1">{{project['name']}}</label>
                             </div>
 
-
                             {% endfor %}
+                            <div class="form-group mt-1">
+                                <label for="Salary"> Stundensatz in CHF</label>
+                                <input type="decimal" class="form-control" name="salary" placeholder="25">
+
+                            </div>
+
                             <button type="submit" class="btn btn-primary mt-2" name="submit" Value="Submit"> Projekte
                             auswerten</button></div>
 

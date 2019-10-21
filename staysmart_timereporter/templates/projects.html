@@ -16,14 +16,6 @@
             <div class="col-xl-3">
                 <form action="#" method="post">
                     <div class="form-row align-items-center">
-                        <!-- <div class="col-auto">
-
-                            <input type="text" class="form-control " name="search" placeholder="Jane Doe">
-                        </div>
-                       
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-2">Suchen</button>
-                        </div>-->
                     </div>
                 </form>
 
@@ -43,7 +35,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for projekt in projekte%} {% endfor %}
+                            {% for project in projects%} {% for parameters in projects[project]%}
+                            <tr>
+                                <td> {{project}} </td>
+
+                                <td> {{parameters['time']}} </td>
+                                <td> {{parameters['costs']}} CHF</td>
+
+                            </tr>
+                            {% endfor %} {% endfor %}
 
                         </tbody>
                     </table>

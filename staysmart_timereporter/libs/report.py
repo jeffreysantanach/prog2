@@ -2,6 +2,7 @@
 import meistertask_requests as meistertask
 from datetime import datetime
 from datetime import timedelta
+from libs import data_helper
 import json
 
 def calctime(starttime,endtime):
@@ -13,7 +14,7 @@ def sec_to_hours(seconds):
     hours = seconds/3600
     hours = round(hours,2)
     return hours
-def report(selected_projects,apikey):
+def report(selected_projects,salary,apikey):
     projects = {}
     #projects['projects'].append({'PR&Marketing2019'}) 
     for selected_project in selected_projects:
@@ -40,7 +41,7 @@ def report(selected_projects,apikey):
                 'firstname' : person['firstname'],
                 'lastname' : person['lastname'],
                 'hours' : worktime,
-                'salary' : worktime *25
+                'salary' : round(worktime *salary,2)
                     
                 }) 
         for task in project_tasks:
@@ -58,11 +59,17 @@ def report(selected_projects,apikey):
         projects[name].append({
                     'members': members,
                     'tasks' : tasks,
-                    'time' : projecttime
+                    'time' : projecttime,
+                    'costs' : round(projecttime *salary,2)
                     }   )
     now = datetime.now()
     dt_string = now.strftime("%d%m%Y%H%M%S")
-    path = 'data/report' + dt_string + '.json'
-    with open(path,'w') as outfile:
-        json.dump(projects,outfile)
+    path = 'report' + dt_string + '.json'
+    path_json = 'data/' +path
+    """
+    data_helper.save_json(path_json,projects)
+    """
+    with open(path_json,'w') as outfile:
+        json.dump(projects,outfile,indent=4)
+  
     return path

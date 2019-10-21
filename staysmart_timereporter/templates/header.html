@@ -10,11 +10,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <!-- Image and text -->
-    <nav class="navbar navbar-dark bg ">
+    <nav class="navbar navbar-expand-lg navbar-dark bg ">
         <a class="navbar-brand " href="# ">
             <img src="{{ url_for( 'static', filename='Icon_Stay_Smart_ohne_Hintergrund.svg' ) }} " width="30 " height="30 " class="d-inline-block align-top " alt=" "> stay smart Timereporter
         </a>
-
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-light mx-3" href="#">Startseite </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light mx-3" href="#">Projekte</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light mx-3 " href="#">Personen</a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light mx-3 " href="#">Tasks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light mx-3 " href="#">Auswertung</a>
+                </li>
+            </ul>
+        </div>
 
     </nav>
     <!-- Optional JavaScript -->
@@ -24,4 +43,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js " integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM " crossorigin="anonymous "></script>
     </body>
 
-</html>
+    </html
