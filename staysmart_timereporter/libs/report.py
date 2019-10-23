@@ -1,5 +1,4 @@
-
-import meistertask_requests as meistertask
+from . import meistertask_requests as meistertask
 from datetime import datetime
 from datetime import timedelta
 from libs import data_helper
