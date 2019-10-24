@@ -1,7 +1,7 @@
 # Created by https://www.gitignore.io/api/code,flask
 # Edit at https://www.gitignore.io/?templates=code,flask
 ##data
-.json
+*.json
 auth_meistertask.py
 ### Code ###
 .vscode/*
