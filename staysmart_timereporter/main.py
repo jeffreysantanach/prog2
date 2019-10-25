@@ -41,6 +41,7 @@ def projects(path):
         path= 'data/' + path
         data = {}
         data = data_helper.load_json(path)
+        data = data['projects']
         return render_template("projects.html",projects=data)
     return data
     

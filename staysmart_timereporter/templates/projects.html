@@ -1,7 +1,7 @@
 {% include "header.html"%}
 
 <body class="center bg-light">
-    <div class="container-fluid bg-light">
+    <div class="container-fluid bg-light full-size">
         <div class="row">
             <div class="col-xl-1"></div>
             <div class="col-xl-11 mt-5">
@@ -36,6 +36,7 @@
                         </thead>
                         <tbody>
                             {% for project in projects%} {% for parameters in projects[project]%}
+                            
                             <tr>
                                 <td> {{project}} </td>
 
