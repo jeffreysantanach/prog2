@@ -38,12 +38,31 @@ def auth():
 @app.route('/projects/<path>')
 def projects(path):
     if path is not None:
-        path= 'data/' + path
+        filepath= 'data/' + path
         data = {}
-        data = data_helper.load_json(path)
+        data = data_helper.load_json(filepath)
         data = data['projects']
-        return render_template("projects.html",projects=data)
-    return data
-    
+        return render_template("projects.html",projects=data,path=path)
+
+@app.route('/persons/<path>')
+def persons(path):
+    if path is not None:
+        filepath= 'data/' + path
+        data = {}
+        data = data_helper.load_json(filepath)
+        data = data['persons']
+        return render_template("persons.html",persons=data, path=path)
+
+@app.route('/tasks/<path>')
+def tasks(path):
+    if path is not None:
+        filepath= 'data/' + path
+        data = {}
+        data = data_helper.load_json(filepath)
+        data = data['projects']
+        return render_template("tasks.html",tasks=data, path=path)
+        #return data
+       
+    return redirect(url_for('main.py'))
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

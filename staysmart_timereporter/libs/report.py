@@ -28,14 +28,14 @@ def append_members_json(members,key,firstname,lastname,hours,salary,projects):
         }   )
     if key in projects['persons']:
         hours = hours + int(projects['persons'][key]['hours'])
-        projects['persons'][key]['hours'] = hours
-        projects['persons'][key]['salary'] = round(hours*salary,2)
+        projects['persons'][key]['hours'] = round(hours)
+        projects['persons'][key]['salary'] = str(round(hours*salary,2)) + ' CHF'
     else:
         projects['persons'][key] = {
             "firstname": firstname,
             "lasname" : lastname,
             "hours": round(hours,2),
-         "salary" : round(hours*salary,2)
+         "salary" : str(round(hours*salary,2)) + ' CHF'
         }
     return members
 
@@ -49,11 +49,12 @@ def append_project_json(projects,name,members,tasks,projecttime,salary):
                     }   )
     return projects
 
-def append_task_json(tasks,key,name,time):
+def append_task_json(tasks,key,name,time,salary):
     tasks[key] =[]
     tasks[key].append({
             'name' : name,
-            'time' : time
+            'time' : round(time,2),
+            'costs' : round(time*salary,2)
         })
     return tasks
 
@@ -92,7 +93,7 @@ def report(selected_projects,salary,apikey):
             worktime = 0.0
             worktime= sec_to_hours(task['tracked_time'])
             projecttime = projecttime + worktime
-            tasks = append_task_json(tasks,task['id'],task['name'],worktime)
+            tasks = append_task_json(tasks,task['id'],task['name'],worktime,salary)
         projects = append_project_json(projects,name,members,tasks,projecttime,salary)
     
         

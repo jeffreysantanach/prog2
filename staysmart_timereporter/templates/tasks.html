@@ -1,11 +1,11 @@
 {% include "header.html"%}
 
 <body class="center bg-light">
-    <div class="container-fluid bg-light">
+    <div class="container-fluid bg-light full-size">
         <div class="row">
             <div class="col-xl-1"></div>
             <div class="col-xl-11 mt-5">
-                <h1>Personen </h1>
+                <h1>Projekte </h1>
             </div>
 
         </div>
@@ -14,36 +14,38 @@
             <div class="col-xl-8 ">
             </div>
             <div class="col-xl-3">
+                <form action="#" method="post">
+                    <div class="form-row align-items-center">
+                    </div>
+                </form>
+
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-1">
-                
-            </div>
+            <div class="col-xl-1"></div>
             <div class="col-xl-10 mt-2 ">
                 <div class="table-responsive">
                     <table class="table table-striped">
 
                         <thead>
                             <tr>
-                                <th scope="col" class="col-auto">Vorname</th>
-                                <th scope="col" class="col-auto">Nachname</th>
+                                <th scope="col" class="col-auto">Projektname</th>
                                 <th scope="col" class="col-md-auto">Zeit</th>
                                 <th scope="col" class="col-md-auto">Kosten</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {%for key,value in persons.items()%}
+                            {% for project in tasks %} {% for parameters in tasks[project] %} {%for task in parameters['tasks'] %}{%for item in parameters['tasks'][task]%}
+                            
                             <tr>
-                            {%for key,value in value.items()%}
-                            
-                                <td> {{value}} </td>
-                            
-                           
-                            {% endfor %}
-                             </tr>   
-                            {% endfor %}
-                           
+                                <td> {{item['name']}}</td>
+                                <td> {{item['time']}}</td>
+                                <td> {{item['costs']}} CHF</td>
+                               
+
+                            </tr>
+                            {% endfor %} {% endfor %}{% endfor %}{% endfor %}
+
                         </tbody>
                     </table>
                 </div>
