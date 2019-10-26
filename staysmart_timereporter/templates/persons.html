@@ -18,7 +18,7 @@
         </div>
         <div class="row">
             <div class="col-xl-1">
-                
+
             </div>
             <div class="col-xl-10 mt-2 ">
                 <div class="table-responsive">
@@ -29,21 +29,21 @@
                                 <th scope="col" class="col-auto">Vorname</th>
                                 <th scope="col" class="col-auto">Nachname</th>
                                 <th scope="col" class="col-md-auto">Zeit</th>
-                                <th scope="col" class="col-md-auto">Kosten</th>
+                                <th scope="col" class="col-md-auto">Lohn</th>
                             </tr>
                         </thead>
                         <tbody>
                             {%for key,value in persons.items()%}
                             <tr>
-                            {%for key,value in value.items()%}
-                            
+                                {%for key,value in value.items()%}
+
                                 <td> {{value}} </td>
-                            
-                           
+
+
+                                {% endfor %}
+                            </tr>
                             {% endfor %}
-                             </tr>   
-                            {% endfor %}
-                           
+
                         </tbody>
                     </table>
                 </div>

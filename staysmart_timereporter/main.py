@@ -28,7 +28,8 @@ def auth():
             try: 
                 selected_projects =  request.form.getlist('mycheckbox')
                 salary = request.form['salary']
-                path = report.report(selected_projects,int(salary),api_key)
+                memberfee = request.form['memberfee']
+                path = report.report(selected_projects,int(salary),api_key,memberfee)
                 redirect_path = 'projects/' + path
                 return redirect(redirect_path)
             except:

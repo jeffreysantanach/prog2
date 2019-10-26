@@ -17,7 +17,7 @@ def get_projects(projectid,api_key):
     return response 
 
 def get_workintervals_project(projectid,api_key):
-    url = 'http://www.meistertask.com/api/projects/'+ projectid +'/work_intervals?'
+    url = 'http://www.meistertask.com/api/projects/'+ projectid +'/work_intervals?finished=true'
     response = requests.get( url,
                headers={'Authorization': api_key},
     )

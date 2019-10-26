@@ -18,7 +18,7 @@ def export_report_json(data):
     data_helper.save_json(path_json,data)
     return path
 
-def append_members_json(members,key,firstname,lastname,hours,salary,projects):
+def append_members_json(members,key,firstname,lastname,hours,salary,projects,memberfee):
     members[key] = []
     members[key].append({
        'firstname' : firstname,
@@ -27,15 +27,23 @@ def append_members_json(members,key,firstname,lastname,hours,salary,projects):
        'salary' : round(hours*salary,2)
         }   )
     if key in projects['persons']:
-        hours = hours + int(projects['persons'][key]['hours'])
-        projects['persons'][key]['hours'] = round(hours)
-        projects['persons'][key]['salary'] = str(round(hours*salary,2)) + ' CHF'
+        hours = hours + float(projects['persons'][key]['hours'])
+        projects['persons'][key]['hours'] = round(hours,2)
+        projects['persons'][key]['salary'] = str(round(hours*salary,2) -float(memberfee)) + ' CHF'
+    elif (hours != 'O CHF' ):
+        salary = round(hours*salary,2) - float(memberfee)
+        projects['persons'][key] = {
+            "firstname": firstname,
+            "lasname" : lastname,
+            "hours": round(hours,2),
+         "salary" : str(round(salary,2)) + ' CHF'
+        }
     else:
         projects['persons'][key] = {
             "firstname": firstname,
             "lasname" : lastname,
             "hours": round(hours,2),
-         "salary" : str(round(hours*salary,2)) + ' CHF'
+         "salary" : str(0) + ' CHF'
         }
     return members
 
@@ -45,7 +53,7 @@ def append_project_json(projects,name,members,tasks,projecttime,salary):
                     'members': members,
                     'tasks' : tasks,
                     'time' : round(projecttime,2),
-                    'costs' : round(projecttime *salary,2)
+                    'costs' : round(projecttime *salary,2) 
                     }   )
     return projects
 
@@ -66,7 +74,7 @@ def sec_to_hours(seconds):
 def get_report_data(selected_projects,apikey):
     return
 
-def report(selected_projects,salary,apikey):
+def report(selected_projects,salary,apikey,memberfee):
     report = {}
     projects = {}
     report['persons'] = {}
@@ -88,7 +96,7 @@ def report(selected_projects,salary,apikey):
                     result= float(calctime(datetime.strptime(time['started_at'],'%Y-%m-%dT%H:%M:%S.%fZ'),datetime.strptime(time['finished_at'],'%Y-%m-%dT%H:%M:%S.%fZ')))
                     result = sec_to_hours(result)
                     worktime = worktime + result  
-            members = append_members_json(members,person['id'],person['firstname'],person['lastname'],worktime,salary,report)
+            members = append_members_json(members,person['id'],person['firstname'],person['lastname'],worktime,salary,report,memberfee)
         for task in project_tasks:
             worktime = 0.0
             worktime= sec_to_hours(task['tracked_time'])
