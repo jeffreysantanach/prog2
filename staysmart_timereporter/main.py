@@ -5,10 +5,12 @@ import json
 from libs import meistertask_requests as meistertask
 from libs import data_helper 
 app = Flask("staysmart_timereporter")
-
+basepath = ".//data"
 @app.route('/',methods=['GET','POST'])
 def auth():
     project_names = []
+    
+    files = data_helper.get_all_files(basepath)
     if request.method == 'POST' :
         if request.form['submit'] == 'Search':
             api_key = request.form['apikey']
@@ -34,7 +36,7 @@ def auth():
                 return redirect(redirect_path)
             except:
                 return render_template("index.html",error= 'true')
-    return render_template("index.html")
+    return render_template("index.html",files= files)
 
 @app.route('/projects/<path>')
 def projects(path):

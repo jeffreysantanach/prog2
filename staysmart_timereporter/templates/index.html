@@ -52,6 +52,21 @@
                                 <button type="submit" class="btn btn-primary mt-2" name="submit" value="Search"> Projekte
                                     suchen</button>
                             </div>
+                            {%if files is defined%}
+                            <div class="form-group col-md-6">
+                                <label for="existingReport"> Bestehende Auswertung ansehen </label>
+                                <div class="form-group">
+                                    <select class="form-control" name="report">
+                                {% for file in files%}
+                                
+                                      <option>{{file}}</option>
+                                    
+                                      {%endfor%}
+                                    </select>
+                                  </div>
+                                <button type="submit" class="btn btn-primary mt-2" name="submit" value="Submit"> Auswertung ansehen</button>
+                            </div>
+                            {%endif%}
                         </div>
                         {% if error %}
                         <div class="alert alert-danger" role="alert">
