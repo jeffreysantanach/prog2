@@ -36,6 +36,10 @@ def auth():
                 return redirect(redirect_path)
             except:
                 return render_template("index.html",error= 'true')
+        elif request.form['submit'] == 'Report':
+            path = 'projects/' + request.form['file']
+            return redirect(path)
+            
     return render_template("index.html",files= files)
 
 @app.route('/projects/<path>')

@@ -47,6 +47,8 @@
                     <form method="post">
                         <div class="form-row">
                             <div class="form-group col-md-6">
+                                    <h2> Neue Auswertung</h2>
+                                    
                                 <label for="APIKey"> Bitte geben Sie ihren API Schlüssel ein. Diesen finden Sie <a href="https://www.mindmeister.com/api/access_tokens/new"> hier </a> </label>
                                 <input type="text" class="form-control" name="apikey" placeholder="Bearer XXXX">
                                 <button type="submit" class="btn btn-primary mt-2" name="submit" value="Search"> Projekte
@@ -54,17 +56,18 @@
                             </div>
                             {%if files is defined%}
                             <div class="form-group col-md-6">
-                                <label for="existingReport"> Bestehende Auswertung ansehen </label>
-                                <div class="form-group">
-                                    <select class="form-control" name="report">
+                                <h2> Bestehende Auswertung</h2>
+                                <label for="existingReport"> Bestehende Auswertung auswählen</label>
+                                
+                                    <select class="form-control" name="file">
                                 {% for file in files%}
                                 
                                       <option>{{file}}</option>
                                     
                                       {%endfor%}
                                     </select>
-                                  </div>
-                                <button type="submit" class="btn btn-primary mt-2" name="submit" value="Submit"> Auswertung ansehen</button>
+                                  
+                                <button type="submit" class="btn btn-primary mt-2" name="submit" value="Report"> Auswertung ansehen</button>
                             </div>
                             {%endif%}
                         </div>
