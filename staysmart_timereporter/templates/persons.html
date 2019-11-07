@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-xl-1"></div>
             <div class="col-xl-11 mt-5">
-                <h1>Personen </h1>
+                <h1>Personen  </h1>
             </div>
 
         </div>
@@ -26,24 +26,26 @@
 
                         <thead>
                             <tr>
-                                <th scope="col" class="col-auto">Vorname</th>
-                                <th scope="col" class="col-auto">Nachname</th>
+                                <th scope="col" class="col-md-auto">Vorname</th>
+                                <th scope="col" class="col-nd-auto">Nachname</th>
                                 <th scope="col" class="col-md-auto">Zeit</th>
                                 <th scope="col" class="col-md-auto">Lohn</th>
+                                <th scope="col" class="col-md-auto"></th>
                             </tr>
                         </thead>
                         <tbody>
                             {%for key,value in persons.items()%}
+                           
                             <tr>
                                 {%for key,value in value.items()%}
-
+                                
                                 <td> {{value}} </td>
-
-
+                           
                                 {% endfor %}
+                                <td><a class="btn btn-primary" href="http://127.0.0.1:5000/person/{{path}}/{{key}}" role="button">Details</a></td>
                             </tr>
                             {% endfor %}
-
+                            
                         </tbody>
                     </table>
                 </div>
@@ -56,3 +58,4 @@
 
 
 </body>
+

@@ -71,5 +71,18 @@ def tasks(path):
         #return data
        
     return redirect(url_for('main.py'))
+
+@app.route('/person/<path>/<id>')
+def person(path,id):
+    if path is not None:
+        filepath= 'data/' + path
+        data = {}
+        data = data_helper.load_json(filepath)
+        person = data['persons'][id]
+        data = data['projects']
+        return render_template("person.html",projects=data, path=path, id= id, person= person)
+        #return data
+       
+    return redirect(url_for('main.py'))
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

@@ -34,14 +34,14 @@ def append_members_json(members,key,firstname,lastname,hours,salary,projects,mem
         salary = round(hours*salary,2) - float(memberfee)
         projects['persons'][key] = {
             "firstname": firstname,
-            "lasname" : lastname,
+            "lastname" : lastname,
             "hours": round(hours,2),
          "salary" : str(round(salary,2)) + ' CHF'
         }
     else:
         projects['persons'][key] = {
             "firstname": firstname,
-            "lasname" : lastname,
+            "lastname" : lastname,
             "hours": round(hours,2),
          "salary" : str(0) + ' CHF'
         }
