@@ -4,6 +4,7 @@ from libs import report
 import json
 from libs import meistertask_requests as meistertask
 from libs import data_helper 
+
 app = Flask("staysmart_timereporter")
 basepath = ".//data"
 @app.route('/',methods=['GET','POST'])
@@ -27,6 +28,7 @@ def auth():
                 return render_template("index.html",error= 'true')
         elif request.form['submit'] == 'Submit':
             api_key = request.form['apikey']
+            
             try: 
                 selected_projects =  request.form.getlist('mycheckbox')
                 salary = request.form['salary']
@@ -85,5 +87,9 @@ def person(path,id):
         #return data
        
     return redirect(url_for('main.py'))
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return redirect('http://127.0.0.1:5000/')  
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
