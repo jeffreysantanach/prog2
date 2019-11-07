@@ -29,9 +29,9 @@
 
                         <thead>
                             <tr>
-                                <th scope="col" class="col-auto">Projektname</th>
-                                <th scope="col" class="col-md-auto">Zeit</th>
-                                <th scope="col" class="col-md-auto">Kosten</th>
+                                <th scope="col" class="col-auto text-left">Projektname</th>
+                                <th scope="col" class="col-md-auto text-right">Zeit</th>
+                                <th scope="col" class="col-md-auto text-right">Kosten</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,8 +40,8 @@
                             <tr>
                                 <td> {{project}} </td>
 
-                                <td> {{parameters['time']}} </td>
-                                <td> {{parameters['costs']}} CHF</td>
+                                <td class= "text-right"> {{parameters['time']}} </td>
+                                <td class= "text-right"> {{parameters['costs']}} CHF</td>
 
                             </tr>
                             {% endfor %} {% endfor %}

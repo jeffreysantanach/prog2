@@ -78,9 +78,10 @@ def person(path,id):
         filepath= 'data/' + path
         data = {}
         data = data_helper.load_json(filepath)
+        memberfee = data['memberfee']
         person = data['persons'][id]
         data = data['projects']
-        return render_template("person.html",projects=data, path=path, id= id, person= person)
+        return render_template("person.html",projects=data, path=path, id= id, person= person,memberfee=memberfee)
         #return data
        
     return redirect(url_for('main.py'))

@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-xl-1"></div>
             <div class="col-xl-11 mt-5">
-                <h1>Projekte </h1>
+                <h1>Tasks</h1>
             </div>
 
         </div>
@@ -30,8 +30,8 @@
                         <thead>
                             <tr>
                                 <th scope="col" class="col-auto">Projektname</th>
-                                <th scope="col" class="col-md-auto">Zeit</th>
-                                <th scope="col" class="col-md-auto">Kosten</th>
+                                <th scope="col" class="col-md-auto text-right">Zeit</th>
+                                <th scope="col" class="col-md-auto text-right">Kosten</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,8 +39,8 @@
                             
                             <tr>
                                 <td> {{item['name']}}</td>
-                                <td> {{item['time']}}</td>
-                                <td> {{item['costs']}} CHF</td>
+                                <td class="text-right"> {{item['time']}}</td>
+                                <td class="text-right"> {{item['costs']}} CHF</td>
                                
 
                             </tr>

@@ -78,6 +78,7 @@ def report(selected_projects,salary,apikey,memberfee):
     report = {}
     projects = {}
     report['persons'] = {}
+    report['memberfee'] = memberfee
     
     for selected_project in selected_projects:
         name = meistertask.get_projects(selected_project,apikey)
