@@ -4,9 +4,14 @@ from libs import report
 import json
 from libs import meistertask_requests as meistertask
 from libs import data_helper 
+from libs import export
 
 app = Flask("staysmart_timereporter")
 basepath = ".//data"
+def get_filepath(path):
+    filepath= 'data/' + path
+    return filepath
+
 @app.route('/',methods=['GET','POST'])
 def auth():
     project_names = []
@@ -47,7 +52,7 @@ def auth():
 @app.route('/projects/<path>')
 def projects(path):
     if path is not None:
-        filepath= 'data/' + path
+        filepath=  get_filepath(path)
         data = {}
         data = data_helper.load_json(filepath)
         data = data['projects']
@@ -56,7 +61,7 @@ def projects(path):
 @app.route('/persons/<path>')
 def persons(path):
     if path is not None:
-        filepath= 'data/' + path
+        filepath=  get_filepath(path)
         data = {}
         data = data_helper.load_json(filepath)
         data = data['persons']
@@ -65,7 +70,7 @@ def persons(path):
 @app.route('/tasks/<path>')
 def tasks(path):
     if path is not None:
-        filepath= 'data/' + path
+        filepath=  get_filepath(path)
         data = {}
         data = data_helper.load_json(filepath)
         data = data['projects']
@@ -77,7 +82,7 @@ def tasks(path):
 @app.route('/person/<path>/<id>')
 def person(path,id):
     if path is not None:
-        filepath= 'data/' + path
+        filepath=  get_filepath(path)
         data = {}
         data = data_helper.load_json(filepath)
         memberfee = data['memberfee']
@@ -87,6 +92,12 @@ def person(path,id):
         #return data
        
     return redirect(url_for('main.py'))
+@app.route('/export/<path>/')
+def export_csv(path):
+    filepath=  get_filepath(path)
+    export.create_export(filepath,'timereport_staysmart.csv')
+    backfilepath = 'http://127.0.0.1:5000/projects/'+path
+    return redirect(backfilepath)
 
 @app.errorhandler(404)
 def page_not_found(e):

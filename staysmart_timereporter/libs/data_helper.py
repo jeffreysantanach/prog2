@@ -1,6 +1,18 @@
 import json
 import os 
 
+import csv
+
+def save_csv(headers,export,filename):
+    path = 'data/'+ filename
+    with open(path, mode='w') as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=headers)
+        writer.writeheader()
+        for key,values in export.items():
+            writer.writerow(values)
+    
+
+
 def load_json(json_path):
     data = {}
     try:
@@ -20,3 +32,4 @@ def get_all_files(basepath):
         if os.path.isfile(os.path.join(basepath, entry)):
             files.append(entry)
     return files
+

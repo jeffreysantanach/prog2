@@ -31,6 +31,16 @@
                 </li>
                 
             </ul>
+            {%if files is defined%}
+            {%else%}
+            <div class="ml-auto">
+               
+                    <a class="btn btn-dark" href="http://127.0.0.1:5000/export/{{path}}" role="button">Export CSV</a>
+                
+              </div>
+            {%endif%}
+        
+        
         </div>
     
     </nav>
