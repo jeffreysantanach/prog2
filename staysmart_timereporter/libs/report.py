@@ -14,7 +14,7 @@ def export_report_json(data):
     now = datetime.now()
     dt_string = now.strftime("%d%m%Y%H%M%S")
     path = 'report' + dt_string + '.json'
-    path_json = 'data/' +path
+    path_json = 'data/json/' +path
     data_helper.save_json(path_json,data)
     return path
 

@@ -1,22 +1,28 @@
 from flask import Flask
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for,send_file
 from libs import report
+
+import os
 import json
 from libs import meistertask_requests as meistertask
 from libs import data_helper 
 from libs import export
+from flask import send_file, send_from_directory, abort
 
 app = Flask("staysmart_timereporter")
-basepath = ".//data"
-def get_filepath(path):
-    filepath= 'data/' + path
+csv_path ="data/csv"
+app.config["CLIENT_CSV"] = csv_path
+
+json_path = "./data/json"
+def get_filepath(path,datatype):
+    filepath= './data/' + datatype + "/"+ path
     return filepath
 
 @app.route('/',methods=['GET','POST'])
 def auth():
     project_names = []
     
-    files = data_helper.get_all_files(basepath)
+    files = data_helper.get_all_files(json_path)
     if request.method == 'POST' :
         if request.form['submit'] == 'Search':
             api_key = request.form['apikey']
@@ -52,7 +58,7 @@ def auth():
 @app.route('/projects/<path>')
 def projects(path):
     if path is not None:
-        filepath=  get_filepath(path)
+        filepath=  get_filepath(path,"json")
         data = {}
         data = data_helper.load_json(filepath)
         data = data['projects']
@@ -61,7 +67,7 @@ def projects(path):
 @app.route('/persons/<path>')
 def persons(path):
     if path is not None:
-        filepath=  get_filepath(path)
+        filepath=  get_filepath(path,"json")
         data = {}
         data = data_helper.load_json(filepath)
         data = data['persons']
@@ -70,7 +76,7 @@ def persons(path):
 @app.route('/tasks/<path>')
 def tasks(path):
     if path is not None:
-        filepath=  get_filepath(path)
+        filepath=  get_filepath(path,"json")
         data = {}
         data = data_helper.load_json(filepath)
         data = data['projects']
@@ -82,7 +88,7 @@ def tasks(path):
 @app.route('/person/<path>/<id>')
 def person(path,id):
     if path is not None:
-        filepath=  get_filepath(path)
+        filepath=  get_filepath(path,"json")
         data = {}
         data = data_helper.load_json(filepath)
         memberfee = data['memberfee']
@@ -92,12 +98,18 @@ def person(path,id):
         #return data
        
     return redirect(url_for('main.py'))
-@app.route('/export/<path>/')
-def export_csv(path):
-    filepath=  get_filepath(path)
-    export.create_export(filepath,'timereport_staysmart.csv')
-    backfilepath = 'http://127.0.0.1:5000/projects/'+path
-    return redirect(backfilepath)
+
+@app.route("/download/<path>")
+def csv_export(path):
+    filepath=  get_filepath(path,"json")
+    csv_filename = 'timereport_staysmart.csv'
+    export.create_export(filepath,csv_filename)
+    try:
+        return send_from_directory(app.config["CLIENT_CSV"], filename=csv_filename, as_attachment=True)
+    except FileNotFoundError:
+       return abort(404)
+
+
 
 @app.errorhandler(404)
 def page_not_found(e):
