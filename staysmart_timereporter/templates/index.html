@@ -21,11 +21,9 @@
                         <div class="form-group col-md-6">
 
                             <label for="role">Wählen Sie die Projekte aus, welche Sie auswerten möchten?</label>
-                            <input class="form-check-input" type="hidden" name="cateogrie" value="0"
-                                id="defaultCheck1" /> {% for project in projects%}
+                            <input class="form-check-input" type="hidden" name="cateogrie" value="0" id="defaultCheck1" /> {% for project in projects%}
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="mycheckbox"
-                                    value="{{project['id']}}">
+                                <input class="form-check-input" type="checkbox" name="mycheckbox" value="{{project['id']}}">
                                 <label class="form-check-label" for="defaultCheck1">{{project['name']}}</label>
                             </div>
 
@@ -46,6 +44,7 @@
 
                     </form>
                     {%else%}
+
                     <p> Hier erhalten Sie die Möglichkeit Meistertask Projekte auszuwerten. </p>
                     <form method="post">
                         <div class="form-row">
@@ -66,9 +65,9 @@
 
                                 <select class="form-control" name="file">
                                     {% for file in files%}
-
+                                    {%if file != ".gitignore"%}
                                     <option>{{file}}</option>
-
+                                    {%endif%}
                                     {%endfor%}
                                 </select>
 
@@ -90,7 +89,7 @@
         </div>
 
     </div>
-    
+
 
 
 </body>
