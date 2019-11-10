@@ -28,9 +28,3 @@ def create_export(path,name_csv):
     export = export_list[0]
     headers = export_list[1]
     data_helper.save_csv(headers,export,name_csv)
-
-"""   
-data = data_helper.load_json("data/json/report08112019170212.json")
-memberfee = data['memberfee']
-export_list = prepare_export(data['persons'],data['projects'],memberfee)
-"""

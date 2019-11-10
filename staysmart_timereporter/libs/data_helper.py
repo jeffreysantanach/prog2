@@ -1,6 +1,6 @@
 import json
 import os 
-
+from . import meistertask_requests as meistertask
 import csv
 
 
@@ -32,3 +32,28 @@ def get_all_files(basepath):
             files.append(entry)
     return files
 
+def get_list_of_projects(api_key):
+        project_names = []
+        try:
+            response = meistertask.get_all_project(api_key)
+            for project in response:
+                project_names.append({
+                "name": project['name'],
+                "id": project['id']
+                    })
+            return project_names 
+        except:
+            return
+def prepare_data(key,path,datatype):
+    try:
+        filepath = get_filepath(path,datatype)
+        data = {}
+        data = load_json(filepath)
+        data = data[key]
+        return data
+    except:
+        return 
+
+def get_filepath(path,datatype):
+    filepath= './data/' + datatype + "/"+ path
+    return filepath

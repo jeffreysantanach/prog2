@@ -71,8 +71,11 @@ def sec_to_hours(seconds):
     hours = round(hours,2)
     return hours
 
-def get_report_data(selected_projects,apikey):
-    return
+def add_time_to_worktime(starttime,endtime,worktime):
+    result= float(calctime(starttime,endtime))
+    result = sec_to_hours(result)
+    worktime = worktime + result
+    return worktime
 
 def report(selected_projects,salary,apikey,memberfee):
     report = {}
@@ -94,9 +97,7 @@ def report(selected_projects,salary,apikey,memberfee):
             worktime = 0.0
             for time in times:
                 if time['person_id'] == person['id']:
-                    result= float(calctime(datetime.strptime(time['started_at'],'%Y-%m-%dT%H:%M:%S.%fZ'),datetime.strptime(time['finished_at'],'%Y-%m-%dT%H:%M:%S.%fZ')))
-                    result = sec_to_hours(result)
-                    worktime = worktime + result  
+                    worktime = add_time_to_worktime(datetime.strptime(time['started_at'],'%Y-%m-%dT%H:%M:%S.%fZ'),datetime.strptime(time['finished_at'],'%Y-%m-%dT%H:%M:%S.%fZ'),worktime)  
             members = append_members_json(members,person['id'],person['firstname'],person['lastname'],worktime,salary,report,memberfee)
         for task in project_tasks:
             worktime = 0.0
@@ -104,9 +105,6 @@ def report(selected_projects,salary,apikey,memberfee):
             projecttime = projecttime + worktime
             tasks = append_task_json(tasks,task['id'],task['name'],worktime,salary)
         projects = append_project_json(projects,name,members,tasks,projecttime,salary)
-    
-        
-    
     report['projects'] = projects
     path = export_report_json(report)
     return path
