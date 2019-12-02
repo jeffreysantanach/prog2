@@ -12,7 +12,7 @@
                 <div class="mr-5 pr-5">
                     {% if projects is defined %}
 
-                    <form method="post">
+                    <form method="post" action="{{url_for('index')}}">
                         <div class="form-group col-md-6">
                             <label for="APIKey"> API Schlüssel</label>
                             <input type="text" class="form-control" name="apikey" value="{{api_key}}" readonly>
@@ -51,13 +51,11 @@
                             <div class="form-group col-md-6">
                                 <h2> Neue Auswertung</h2>
 
-                                <label for="APIKey"> Bitte geben Sie ihren API Schlüssel ein. Diesen finden Sie <a
-                                        href="https://www.mindmeister.com/api/access_tokens/new"> hier </a> </label>
-                                <input type="text" class="form-control" name="apikey" placeholder="Bearer XXXX">
-                                <button type="submit" class="btn btn-primary mt-2" name="submit" value="Search">
-                                    Projekte
-                                    suchen</button>
-                            </div>
+                                <!---<label for="APIKey"> Bitte geben Sie ihren API Schlüssel ein. Diesen finden Sie <a
+                                        href="https://www.mindmeister.com/api/access_tokens/new"> hier </a> </label> 
+                                
+                                <input type="text" class="form-control" name="apikey" placeholder="Bearer XXXX">-->
+                                <a class="btn btn-primary" href="https://www.mindmeister.com/oauth2/authorize?client_id={{client_id}}&redirect_uri=https%3A%2F%2F127.0.0.1%3A5000%2Freturnpath&response_type=code&scope=meistertask" role="button">Login</a>                                </div>
                             {%if files is defined%}
                             <div class="form-group col-md-6">
                                 <h2> Bestehende Auswertung</h2>
