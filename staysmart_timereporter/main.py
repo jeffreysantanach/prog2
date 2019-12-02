@@ -112,7 +112,7 @@ def auth():
         
 
 def login(code):
-    data = data_helper.load_json(json_path+"/auth.json")
+    data = data_helper.load_json(auth_path+"/auth.json")
     client_id = data['client_id']
     client_secret = data['client_secret']
     url= 'https://www.mindmeister.com/oauth2/token?grant_type=authorization_code&code='+code+'&client_id='+client_id+'&client_secret='+client_secret+'&redirect_uri=https://127.0.0.1:5000/returnpath&scopes=mindmeister'
