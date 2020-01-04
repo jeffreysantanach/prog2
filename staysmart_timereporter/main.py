@@ -20,13 +20,54 @@ auth_path = "./data/auth"
 
 #functions
 def get_filepath(path,datatype):
+    """
+    Summary: 
+    Creates the file path, based on the file type
+    
+    Args:
+        path (String): name of the file
+        datatype (String): Datatype of the file
+    Returns:
+        filepath: full path of the file
+    """
     filepath= './data/' + datatype + "/"+ path
     return filepath
+
+def get_access_token(code):
+    """
+    Summary: 
+    Get the Access Token from MeisterTask
+    
+    Args:
+        code (String): the authorization code received from the Meistertask authorization server
+    Returns:
+        access_token: the access token of respective user
+    """
+    data = data_helper.load_json(auth_path+"/auth.json")
+    client_id = data['client_id']
+    client_secret = data['client_secret']
+    url= 'https://www.mindmeister.com/oauth2/token?grant_type=authorization_code&code='+code+'&client_id='+client_id+'&client_secret='+client_secret+'&redirect_uri=https://127.0.0.1:5000/returnpath&scopes=mindmeister'
+    response = requests.post(url)
+    response = response.json()
+    access_token = response['access_token']
+    return access_token
 
 #route functions
 
 @app.route('/',methods=['GET','POST'])
 def index():
+    """
+    Summary: 
+    Start page of the tool. 
+    When https://127.0.0.1:5000 is called for the first time, index.html is called. 
+    If the button "View projects" is pressed, an already existing report is opened.
+    If the button "Evaluate projects" is pressed, the projects are analysed.
+   
+    Args:
+        
+    Returns:
+        Renders templates or call functions with the path.
+    """
     files = data_helper.get_all_files(json_path)
     data = data_helper.load_json(auth_path + '/auth.json')
     client_id = data['client_id']
@@ -40,17 +81,31 @@ def index():
                 memberfee = request.form['memberfee']
                 path = report.report(selected_projects,int(salary),api_key,memberfee)
                 redirect_path = 'projects/' + path
+                # Forwarding to the report just created
                 return redirect(redirect_path)   
           except:
+                # forwarding to the error page
                 return render_template("index.html",error= 'true')
 
         elif request.form['submit'] == 'Report':
             path = 'projects/' + request.form['file']
-            return redirect(path)       
+            # Forwarding to the selected report 
+            return redirect(path)
+    # shows startpage       
     return render_template("index.html",files= files,client_id=client_id, client_secret=client_secret)
 
 @app.route('/projects/<path>')
 def projects(path):
+    """
+    Summary: 
+    Shows the report for all projects
+    
+    Args:
+        path (String): name of the json file
+        
+    Returns:
+        report of projects
+    """
     if path is not None:
         data = data_helper.prepare_data("projects",path,"json")
         if data is None:
@@ -59,6 +114,16 @@ def projects(path):
 
 @app.route('/persons/<path>')
 def persons(path):
+    """
+    Summary: 
+    Shows the report for all persons
+    
+    Args:
+        path (String): name of the json file
+        
+    Returns:
+        report of persons
+    """
     if path is not None:
         data = data_helper.prepare_data("persons",path,"json")
         if data is None:
@@ -67,6 +132,16 @@ def persons(path):
 
 @app.route('/tasks/<path>')
 def tasks(path):
+    """
+    Summary: 
+    Shows the report for all tasks
+    
+    Args:
+        path (String): name of the json file
+        
+    Returns:
+        report of tasks
+    """
     if path is not None:
         data = data_helper.prepare_data("projects",path,"json")
         if data is None:
@@ -76,6 +151,17 @@ def tasks(path):
 
 @app.route('/person/<path>/<id>')
 def person(path,id):
+    """
+    Summary: 
+    Shows the time report for the individual person
+    
+    Args:
+        path (String): name of the json file
+        id (interger): Meistertask ID of person 
+        
+    Returns:
+       time report of the individual person
+    """
     if path is not None:
         memberfee = data_helper.prepare_data("memberfee",path,"json")
         data = data_helper.prepare_data("projects",path,"json")
@@ -89,6 +175,17 @@ def person(path,id):
 
 @app.route("/download/<path>")
 def csv_export(path):
+    """
+    Summary: 
+    Creates a CSV file and makes it available for download
+    
+    Args:
+        path (String): name of the json file
+        id (interger): Meistertask ID of person 
+        
+    Returns:
+       CSV file to download
+    """
     filepath=  get_filepath(path,"json")
     csv_filename = 'timereport_staysmart.csv'
     export.create_export(filepath,csv_filename)
@@ -99,10 +196,21 @@ def csv_export(path):
 
 @app.route('/returnpath',methods=['GET','POST'])
 def auth():
+    """
+    Summary: 
+    Return path of OAuth2 authorization, get the secret code of the meistertask server 
+    and get out the access_token of the user
+    
+    Args:
+       
+        
+    Returns:
+       Form for selection of the projects, which should be analysed
+    """
     if request.method == 'GET':
         code = request.args.get('code')
-        access_token = login(code)
-        access_token = access_token['access_token']
+        access_token = get_access_token(code)
+        
         api_key= "Bearer " + access_token
         project_names= data_helper.get_list_of_projects(api_key)
         if project_names is None:
@@ -111,18 +219,19 @@ def auth():
             return render_template("index.html",projects= project_names, api_key=api_key)
         
 
-def login(code):
-    data = data_helper.load_json(auth_path+"/auth.json")
-    client_id = data['client_id']
-    client_secret = data['client_secret']
-    url= 'https://www.mindmeister.com/oauth2/token?grant_type=authorization_code&code='+code+'&client_id='+client_id+'&client_secret='+client_secret+'&redirect_uri=https://127.0.0.1:5000/returnpath&scopes=mindmeister'
-    response = requests.post(url)
-    response = response.json()
-    return response
-
 #errorhandler
 @app.errorhandler(404)
 def page_not_found(e):
+    """
+    Summary: 
+    error handler for error 404. It brings the user back to the startpage
+    
+    Args:
+        e (String): id of error
+    
+    Returns:
+       Startpage
+    """
     return redirect('https://127.0.0.1:5000/')  
 if __name__ == "__main__":
     app.run(ssl_context='adhoc',debug=True, port=5000)
