@@ -50,11 +50,6 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <h2> Neue Auswertung</h2>
-
-                                <!---<label for="APIKey"> Bitte geben Sie ihren API Schlüssel ein. Diesen finden Sie <a
-                                        href="https://www.mindmeister.com/api/access_tokens/new"> hier </a> </label> 
-                                
-                                <input type="text" class="form-control" name="apikey" placeholder="Bearer XXXX">-->
                                 <a class="btn btn-primary" href="https://www.mindmeister.com/oauth2/authorize?client_id={{client_id}}&redirect_uri=https%3A%2F%2F127.0.0.1%3A5000%2Freturnpath&response_type=code&scope=meistertask" role="button">Login</a>                                </div>
                             {%if files is defined%}
                             <div class="form-group col-md-6">
