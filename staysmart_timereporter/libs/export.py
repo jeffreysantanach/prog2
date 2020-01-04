@@ -7,16 +7,15 @@ def prepare_export(persons,projects,memberfee):
          person = {}
          for key,value in value.items():
              person[key]= value
-         person['memberfee'] = memberfee
+         person['memberfee'] = memberfee   
          for projectname,properties in projects.items():
+            person[projectname] = 0 
             for project in properties:
                 for id,values in project['members'].items():
-                    if id == person_id:
-                        for member in values:                            
-                            person[projectname] = member['hours']
-                    else:
-                        person[projectname] = 0
+                    if id == person_id:                         
+                        person[projectname]= values[0]['hours']
          export[person_id] = person
+         
     for projectname,properites in projects.items():
         header.append(projectname)
     return export,header
