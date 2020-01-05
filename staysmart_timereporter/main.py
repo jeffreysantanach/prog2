@@ -1,3 +1,13 @@
+""" 
+Summary: 
+    Main python file to run the webapp. It routes the webrequest to the correct functions. 
+Args:
+    app: defines the name of the web app
+    csv_path: path of the CSV-Files
+    app.config["CLIENT_CSV"]: Config for downloading files
+    json_path: path of the JSON files
+    auth_path: path of the authorization file for the api access to meistertask.
+"""
 # import modules
 import os
 import json
@@ -19,29 +29,16 @@ json_path = "./data/json"
 auth_path = "./data/auth"
 
 #functions
-def get_filepath(path,datatype):
-    """
-    Summary: 
-    Creates the file path, based on the file type
-    
-    Args:
-        path (String): name of the file
-        datatype (String): Datatype of the file
-    Returns:
-        filepath: full path of the file
-    """
-    filepath= './data/' + datatype + "/"+ path
-    return filepath
 
 def get_access_token(code):
     """
     Summary: 
-    Get the Access Token from MeisterTask
+    Gets the Access Token from MeisterTask
     
     Args:
         code (String): the authorization code received from the Meistertask authorization server
     Returns:
-        access_token: the access token of respective user
+        string: the access token of respective user
     """
     data = data_helper.load_json(auth_path+"/auth.json")
     client_id = data['client_id']
@@ -63,7 +60,6 @@ def index():
     If the button "View projects" is pressed, an already existing report is opened.
     If the button "Evaluate projects" is pressed, the projects are analysed.
    
-    Args:
         
     Returns:
         Renders templates or call functions with the path.
@@ -74,17 +70,17 @@ def index():
     client_secret = data['client_secret']
     if request.method == 'POST' :
         if request.form['submit'] == 'Submit':
-          api_key = request.form['apikey']
-          try: 
+            api_key = request.form['apikey']
+            try:
                 selected_projects =  request.form.getlist('mycheckbox')
-                salary = request.form['salary']
+                hsalary = request.form['salary']
                 memberfee = request.form['memberfee']
-                path = report.report(selected_projects,int(salary),api_key,memberfee)
+                path = report.report(selected_projects,float(hsalary),api_key,float(memberfee))
                 redirect_path = 'projects/' + path
                 # Forwarding to the report just created
-                return redirect(redirect_path)   
-          except:
-                # forwarding to the error page
+                return redirect(redirect_path)  
+            # forwarding to the error page
+            except:
                 return render_template("index.html",error= 'true')
 
         elif request.form['submit'] == 'Report':
@@ -101,7 +97,7 @@ def projects(path):
     Shows the report for all projects
     
     Args:
-        path (String): name of the json file
+        path (string): name of the json file
         
     Returns:
         report of projects
@@ -119,7 +115,7 @@ def persons(path):
     Shows the report for all persons
     
     Args:
-        path (String): name of the json file
+        path (string): name of the json file
         
     Returns:
         report of persons
@@ -137,7 +133,7 @@ def tasks(path):
     Shows the report for all tasks
     
     Args:
-        path (String): name of the json file
+        path (string): name of the json file
         
     Returns:
         report of tasks
@@ -156,8 +152,8 @@ def person(path,id):
     Shows the time report for the individual person
     
     Args:
-        path (String): name of the json file
-        id (interger): Meistertask ID of person 
+        path (string): name of the json file
+        id (integer): Meistertask ID of person 
         
     Returns:
        time report of the individual person
@@ -180,14 +176,14 @@ def csv_export(path):
     Creates a CSV file and makes it available for download
     
     Args:
-        path (String): name of the json file
-        id (interger): Meistertask ID of person 
+        path (string): name of the json file
+        id (integer): Meistertask ID of person 
         
     Returns:
        CSV file to download
     """
-    filepath=  get_filepath(path,"json")
-    csv_filename = 'timereport_staysmart.csv'
+    filepath=  data_helper.get_filepath(path,"json")
+    csv_filename = path[:-5] + ".csv"
     export.create_export(filepath,csv_filename)
     try:
         return send_from_directory(app.config["CLIENT_CSV"], filename=csv_filename, as_attachment=True)
@@ -198,11 +194,8 @@ def csv_export(path):
 def auth():
     """
     Summary: 
-    Return path of OAuth2 authorization, get the secret code of the meistertask server 
+    Returns path of OAuth2 authorization, get the secret code of the meistertask server 
     and get out the access_token of the user
-    
-    Args:
-       
         
     Returns:
        Form for selection of the projects, which should be analysed
@@ -227,7 +220,7 @@ def page_not_found(e):
     error handler for error 404. It brings the user back to the startpage
     
     Args:
-        e (String): id of error
+        e (string): id of error
     
     Returns:
        Startpage
