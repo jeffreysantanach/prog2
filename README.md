@@ -62,13 +62,12 @@ Folgende Packages müssen Installiert sein:
 ### Installation der Applikation
 
 1. Laden Sie das Repository von Github herunter.
-![Application](img/insta1.png)
 
 2. Entzippen Sie den Ordner
-![Application](img/insta2.png)
 
 3. Fügen Sie in den Ordner prog2-master/staysmart_timereporter/data/auth das Authentifizierungs File ein. (Dieses haben Sie in einem seperaten E-Mail erhalten.)
-![Application](img/insta3.png)
+
+![Application](img/installation1.png)
 
 4. Rufen Sie den Anaconda Prompt auf und navigieren sie zum Speicherort des Ordner
 ![Application](img/insta4.png)
@@ -81,38 +80,49 @@ Anwendung der Applikation
 **Erstellen eines neuen Reports**
 
 1. Rufen Sie in Ihrem Browser **https://127.0.0.1:5000**
+
 ![Application](img/step1.png)
 
-2. Vertrauen Sie der Webseite, diese Meldung können Sie ignoriern. 
+2. Vertrauen Sie der Webseite. Diese Meldung können Sie ignoriern. 
+
 ![Application](img/step2.png)
 
 3. Klicken Sie auf **Login**.
+
 ![Application](img/step3.png)
 
 4. Nun werden Sie auf eine Loginseite von Meistertask weitergeleitet. Geben Sie dort ihre Zugriffdaten ein. (@fabod diese haben Sie in einem separaten Mail erhalten.)
+
 ![Application](img/step4.png)
 
 5. Erlauben Sie der Applikation den Zugriff.
+
 ![Application](img/step5.png)
 
-6. Folglich sehen Sie eine Auswahl von Projekten, die Projekt die Sie selektieren werden ausgewertet.Danach können sie unterhalb noch den Studenlohn definiern und den Mitgliederbeitrag das jedes Mitglied bezahlen soll. 
+6. Folglich sehen Sie eine Auswahl von Projekten, die Projekt die Sie selektieren werden ausgewertet.Danach können sie unterhalb noch den Studenlohn definiern und den Mitgliederbeitrag das jedes Mitglied bezahlen soll.
+
 ![Application](img/step6.png)
 
 7. Alles eingegeben? Dann klicken Sie auf **Projekte auswerten**
+
 ![Application](img/step7.png)
 
 8. Dann werden Sie auf die erste Auswertung weitergeleitet. Sie sehen nun die Auswertung pro Projekt.
+
 ![Application](img/step8.png) 
 
 **Ansehen eines bereits erstellten Reports**
 
 1. Wählen Sie aus dem Dropdown Menü, unter dem Titel Bestehende Auswertung, einen voherigen Report aus. 
+
 ![Application](img/stepa1.png)
 
 2. Folglich klicken Sie auf **Auswertung ansehen**
+
 ![Application](img/stepa2.png)
 
-3. Dann werden Sie auf die erste Auswertung weitergeleitet. Sie sehen nun die Auswertung pro Projekt. 
+3. Dann werden Sie auf die erste Auswertung weitergeleitet. Sie sehen nun die Auswertung pro Projekt.
+
 ![Application](img/stepa3.png)
 
 **Auswertung pro Projekt**
@@ -132,6 +142,7 @@ In der Detailansicht sehen eine detailierte Abrechnung. Zu einem kann man sehen 
 ![Application](img/person.png)
 
 **Auswertung pro Task**
+
 In der Auswertung pro Task sehen sie die Aufgaben der Projekte, die Sie für die Auswertung selektiert haben. Sie gelangen über den Menüpunkt **Tasks** zu dieser Ansicht. In der Tabelle können Sie drei Informationen pro Task entnehmen. In der ersten Spalte sehen sie den Tasksnamen, in der zweiten Spalte sehen sie die Zeit die für diesen Task aufgezeichnet wurde und in der letzten Spalte können Sie die Kosten sehen die dieser Task verursacht. 
 
 ![Application](img/tasks.png)
