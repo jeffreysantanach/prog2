@@ -59,6 +59,7 @@ def append_members_json(members,key,firstname,lastname,hours,hsalary,report,memb
         report (dictionary): the report 
         memberfee (floating): memberfee of the association
     """
+    # Adds an new member to the project overview.
     members[key] = []
     members[key].append({
        'firstname' : firstname,
@@ -67,8 +68,11 @@ def append_members_json(members,key,firstname,lastname,hours,hsalary,report,memb
        'salary' : round(hours*hsalary,2)
         }   )
     
-    salary = round(hours*hsalary,2) - float(memberfee)
-    if key in report['persons']:
+    # Adds or update the person in the summary of the report. 
+
+    salary = round(hours*hsalary,2) - float(memberfee) # The salary is calculated as shown here: (Hours * Hourly salary) - Memberfee 
+    if key in report['persons']: 
+        # If person already has an entry, it must be updated. This mainly affects the hours and the salary
         hours = hours + float(report['persons'][key]['hours'])
         salary = round(hours*hsalary,2) - float(memberfee)
         report['persons'][key]['hours'] = round(hours,2)
