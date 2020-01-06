@@ -10,26 +10,27 @@ Im Verein stay smart arbeiten wir mit MeisterTask. Dort verteilen wir die Aufgab
 Meine Idee ist es eine Webapplikation zu entwickeln, die es mir und dem Verein ermöglicht eine Auswertung über mehrere Projekte in MeisterTask zu erstellen und somit viel Aufwand zu ersparen. Dazu möchte ich die API Schnittstelle von Meistertask als Datenquelle benützen. Zuerst muss man sich mit seinem persönlichen Token authenzieren. Folglich soll man in meiner Webapp per Forumlar auswählen welche Projekte man in der Auswertung beachten möchte, es könnte sein, dass man nicht alle Projekte vom Verein sind. Als nächstes  gibt man in das Forumlar, was für eine Stundenlohn angewendet werden soll. Dann kann man die Auswertung starten und man gelangt auf eine Übersicht Seite mit allen Personen aus den Projekten. Dort sieht man pro Person das Total an Arbeitstunden und die zu bezahlende Entschädigung. Ebenfalls ist ersichtlich was der Verein gesamthaft bezahlen muss und wie viele Stunden gearbeitet wurde. Wenn man drauf klickt sieht man die Auswertung pro Person (Stunden und Entschädigung). 
 
 ### Anforderung an das Projekt
-- Eingabe von Token (für Zugriff),Stundenlohn und Auswahl von Projekten die ausgewertet werden sollen. 
+- Eingabe von Stundenlohn und Auswahl von Projekten die ausgewertet werden sollen. 
 - Einlesen und speichern von Projekten, Tasks, Projektmitgliedern und Arbeitsintervallen durch die API von Meistertaks
 - Auswerten der Arbeitszeit. (pro Person, pro Projekt und pro Task)
 - Ausgabe der Zeit pro Projekt als CSV für die Buchhaltung (Summe pro Projekt und Gesamt)
 
 ## Workflow
 
+
 ### Dateneingabe und Datenquelle
 Die Daten für die Zeiterfassung stammen direkt aus der Projektmanagment Software MeisterTask. Dazu wurde die API von Meistertask verwendet. Die Applikation greift direkt mittels OAuth2-Authentifizierung auf die Daten zu. Im Benutzermenü von staysmart timereporter kann der Benutzer dann auswählen, welche Projekte ausgewertet werden sollen.
 
 
 ### Datenverarbeitung
-MeisterTask liefert nur Rohdaten. Daher muss die Applikation die Daten verarbeiten.
+MeisterTask liefert nur Rohdaten. Daher muss die Applikation die Daten verarbeiten. Das geschieht mit den Funktionen in der Libary report.py. Dort werden 
 
 
 ### Datenausgabe 
 
 ### Ablauf
 
-![Application](img/prog2.png)
+![Application](img/staysmart_timereporter.png)
 
 ## Benutzeranleitung
 
