@@ -1,5 +1,5 @@
 # stay smart Timereporter
-![Application](img/logo.png)
+![Application](img/LogoFuchs.png)
 
 ![Conda (channel only)](https://img.shields.io/conda/vn/conda-forge/flask?label=flask) ![Conda (channel only)](https://img.shields.io/conda/vn/conda-forge/jinja2?label=jinja2) ![Conda (channel only)](https://img.shields.io/conda/vn/conda-forge/requests?label=requests) 
 
